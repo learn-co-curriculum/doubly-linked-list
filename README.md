@@ -181,6 +181,8 @@ list.find('tell me secrets')
 
 `addFirst` takes a Node as an argument and adds it as the `head` of the Linked List. No existing Nodes are removed.
 
+This method adds only 1 Node to the list.
+
 ```
 head = new Node('hi again', new Node('but why?'))
 list = new LinkedList(head)
@@ -194,6 +196,8 @@ list.print()
 ### 9. Add `addLast(node)` method to `LinkedList`
 
 `addLast` takes a Node as an argument and adds it at the end of the Linked List (i.e. it will be the tail). No existing Nodes are removed. The `iterate` method can help you here.
+
+This method adds only 1 Node to the list.
 
 ```
 head = new Node('hi again', new Node('but why?'))
@@ -263,7 +267,7 @@ list.replace(2, '3')
 
 ### 13. Add `insert(index, node)` to `LinkedList`
 
-Insert the given `node` at the given `index` in the `LinkedList`. No nodes should be removed or replaced!
+Insert the given `node` at the given `index` in the `LinkedList`. No nodes should be removed or replaced! This method inserts only 1 Node into the list.
 
 Ensure you can handle all valid `index` values: 0 to last index + 1 in list. Don't worry about invalid index values.
 
