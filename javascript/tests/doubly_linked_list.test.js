@@ -1,4 +1,4 @@
-const { Node, DoublyLinkedList } = require("../../solutions/doubly_linked_list");
+const { Node, DoublyLinkedList } = require("../doubly_linked_list");
 
 describe("Node", () => {
   const makeNode = () => new Node("hi", "there");
