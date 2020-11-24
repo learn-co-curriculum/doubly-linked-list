@@ -1,4 +1,4 @@
-require "./linked_list"
+require "../solutions/doubly_linked_list"
 
 RSpec.describe "Node" do
   let(:node) { Node.new("hi", "there") }
@@ -25,9 +25,9 @@ RSpec.describe "Node" do
 end
 
 RSpec.describe "LinkedList" do
-  let(:linked_list) { LinkedList.new(Node.new("one", Node.new("two", Node.new("three", Node.new("four"))))) }
-  let(:empty_list) { LinkedList.new }
-  let(:one_item_list) { LinkedList.new(Node.new("just one")) }
+  let(:linked_list) { DoublyLinkedList.new(Node.new("one", Node.new("two", Node.new("three", Node.new("four"))))) }
+  let(:empty_list) { DoublyLinkedList.new }
+  let(:one_item_list) { DoublyLinkedList.new(Node.new("just one")) }
 
   context "#initialize" do
     it "sets head to nil if no argument is provided" do
@@ -36,7 +36,7 @@ RSpec.describe "LinkedList" do
 
     it "sets head to the argument if an argument is provided" do
       head = Node.new("hi")
-      list = LinkedList.new(head)
+      list = DoublyLinkedList.new(head)
 
       expect(list.head).to eq(head)
     end

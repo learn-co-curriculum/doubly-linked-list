@@ -33,7 +33,7 @@ class DoublyLinkedList
   # MODIFY TO UPDATE PREV_NODE
   def add_first(node)
     node.next_node = @head
-    @head.prev_node = node
+    @head.prev_node = node unless @head.nil?
     @head = node
   end
 
@@ -57,7 +57,7 @@ class DoublyLinkedList
   def remove_first
     old_head = @head
     @head = @head.next_node unless @head.nil?
-    @head.prev_node = nil
+    @head.prev_node = nil unless @head.nil?
     old_head
   end
 
