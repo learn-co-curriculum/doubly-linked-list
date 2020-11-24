@@ -2,12 +2,14 @@
 
 **Fork and then clone me!**
 
-Today we'll be implementing a Doubly Linked List. A Doubly Linked List is like a singly-linked list, except it has an extra piece of data on each Node: a `prev` pointer that points to the previous Node.
+Today we'll be implementing a Doubly Linked List. A Doubly Linked List is like a singly-linked list, except it has an extra attribute on each Node: a `prev` pointer that points to the previous Node.
 
 ![Linked List](./linked_list.png)
 
 
 ## Implement a Doubly Linked List
+
+For this challenge, assume that only one Node is added at a time, including upon initialization of a new list.
 
 ### 1. Modify the `Node` Class
 
@@ -21,19 +23,7 @@ node.prev
 node.prev = new Node('zeroth')
 node.prev
 => Node with value 'zeroth'
-
-node.prev.next
-=> Node with value 'first'
-
-node.next = new Node('second')
-node.next
-=> Node with value 'second'
-
-node.next.prev
-=> Node with value 'first'
 ```
-
-Hint: You might want to write setter methods.
 
 ### 2. Modify the `LinkedList` Class
 
@@ -62,8 +52,9 @@ list.head.prev
 => nil or null
 ```
 
-
 Use the language of your choosing. We've included code from the original LinkedList implementation. You may also copy and paste your own.
+
+We've also included the original LinkedList tests, so you can ensure that your code still functions correctly.
 
 ## Before you start coding:
 

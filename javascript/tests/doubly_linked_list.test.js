@@ -1,4 +1,4 @@
-const { Node, LinkedList } = require("../linked_list");
+const { Node, LinkedList } = require("../doubly_linked_list");
 
 describe("Node", () => {
   const makeNode = () => new Node("hi", "there");
