@@ -1,4 +1,4 @@
-const { Node, LinkedList } = require("../doubly_linked_list");
+const { Node, DoublyLinkedList } = require("../../solutions/doubly_linked_list");
 
 describe("Node", () => {
   const makeNode = () => new Node("hi", "there");
@@ -28,9 +28,9 @@ describe("LinkedList", () => {
   const nodeOne = new Node("one", nodeTwo);
   const justOne = new Node("just one");
 
-  let emptyList = new LinkedList();
-  let oneItemList = new LinkedList(justOne);
-  let linkedList = new LinkedList(nodeOne);
+  let emptyList = new DoublyLinkedList();
+  let oneItemList = new DoublyLinkedList(justOne);
+  let linkedList = new DoublyLinkedList(nodeOne);
 
   const consoleLog = console.log;
   const LLValues = ["one", "two", "three", "four"];
@@ -287,6 +287,128 @@ describe("LinkedList", () => {
       linkedList.clear();
 
       expect(linkedList.head).toBe(null);
+    });
+  });
+});
+
+describe("updating prev properly", () => {
+  let node = new Node('one');
+  let list = new DoublyLinkedList(node);
+  let head = new Node('one');
+  let tail = new Node('two');
+  let twoList = new DoublyLinkedList(head);
+  twoList.addLast(tail);
+
+  beforeEach(() => {
+    node = new Node('one');
+    list = new DoublyLinkedList(node);
+    head = new Node('one');
+    tail = new Node('two');
+    twoList = new DoublyLinkedList(head);
+    twoList.addLast(tail);
+  });
+
+  describe("addFirst()", () => {
+    test("updates the former head's previous node to the node being added", () => {
+      list.addFirst(new Node('zero'));
+
+      expect(list.head.next).toBe(node);
+      expect(node.prev.value).toBe('zero');
+    });
+  });
+
+  describe("addLast()", () => {
+    test("updates the former head's previous node to the node being added", () => {
+      const lastNode = new Node('two');
+      list.addLast(lastNode);
+
+      expect(lastNode.prev).toBe(list.head);
+    });
+  });
+
+  describe("removeFirst()", () => {
+    test("updates the new head's prev to null", () => {
+      twoList.removeFirst();
+
+      expect(twoList.head.prev).toBe(null);
+    });
+  });
+
+  describe("replace()", () => {
+    test("head's prev is null when the head is replaced", () => {
+      twoList.replace(0, new Node('new one'));
+
+      expect(twoList.head.prev).toBe(null);
+    });
+
+    test("node after head's prev is new head when the head is replaced", () => {
+      twoList.replace(0, new Node('new one'));
+
+      expect(twoList.head.next.prev.value).toBe('new one');
+    });
+
+    test("sets the tail's prev when the tail is replaced", () => {
+      twoList.replace(1, new Node('new one'));
+
+      expect(twoList.head.next.prev.value).toBe('one');
+    });
+
+    test("sets the middle node's prev when it is replaced", () => {
+      twoList.addFirst(new Node('zero'));
+      twoList.replace(1, new Node('special'));
+
+      expect(twoList.head.next.prev.value).toBe('zero');
+    });
+
+    test("sets the next node's prev when a node replaced", () => {
+      twoList.addFirst(new Node('zero'));
+      twoList.replace(1, new Node('special'));
+
+      expect(twoList.head.next.next.prev.value).toBe('special');
+    });
+  });
+
+  describe("insert", () => {
+    test("sets prev correctly when a node is inserted at index 0", () => {
+      twoList.insert(0, new Node('zero'));
+
+      expect(twoList.head.prev).toBe(null);
+      expect(twoList.head.next.prev.value).toBe('zero');
+    });
+
+    test("sets prev correctly when a node is inserted as the new tail", () => {
+      twoList.insert(2, new Node('tail'));
+
+      expect(twoList.head.next.next.prev.value).toBe('two');
+    });
+
+    test("sets prev correctly when a node is inserted in the middle", () => {
+      const newNode = new Node('1.5');
+      twoList.insert(1, newNode);
+
+      expect(twoList.head.next.prev).toBe(head);
+      expect(twoList.head.next.next.prev).toBe(newNode);
+    });
+  });
+
+  describe("remove()", () => {
+    test("sets the new head's prev to null when removing the original head", () => {
+      twoList.remove(0);
+
+      expect(twoList.head.prev).toBe(null);
+    });
+
+    test("sets the next node's prev correctly when removing a middle node", () => {
+      twoList.addFirst(new Node('zero'));
+      twoList.remove(1);
+
+      expect(twoList.head.next.prev.value).toBe('zero');
+    });
+
+    test("leaves prev alone when removing the tail", () => {
+      twoList.remove(1);
+
+      expect(twoList.head.prev).toBe(null);
     });
   });
 });

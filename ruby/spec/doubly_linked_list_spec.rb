@@ -1,4 +1,4 @@
-require "../solutions/doubly_linked_list"
+require "./doubly_linked_list"
 
 RSpec.describe "Node" do
   let(:node) { Node.new("hi", "there") }
@@ -20,6 +20,19 @@ RSpec.describe "Node" do
 
     it "sets an attribute called next_node to nil" do
       expect(Node.new.next_node).to eq(nil)
+    end
+  end
+
+  context "setting and getting prev_node" do
+    it "sets prev_node to nil by default" do
+      expect(Node.new('hi').prev_node).to be_nil
+    end
+
+    it "gets and sets the prev_node" do
+      node = Node.new('two')
+      node.prev_node = Node.new('one')
+
+      expect(node.prev_node.value).to eq('one')
     end
   end
 end
@@ -252,6 +265,120 @@ RSpec.describe "LinkedList" do
       linked_list.clear
 
       expect(linked_list.head).to be_nil
+    end
+  end
+end
+
+RSpec.describe "updating prev_node appropriately" do
+  let(:node) { Node.new('one') }
+  let(:list) { DoublyLinkedList.new(node) }
+  let(:head) { Node.new('one') }
+  let(:tail) { Node.new('two') }
+  let(:two_list) do 
+    list = DoublyLinkedList.new(head)
+    list.add_last(tail)
+    list
+  end
+
+  context "#add_first" do
+    it "updates the former head's previous node to the node being added" do
+      list.add_first(Node.new('zero'))
+
+      expect(list.head.next_node).to be(node)
+      expect(node.prev_node.value).to eq('zero')
+    end
+  end
+
+  context "#add_last" do
+    it "updates the former head's previous node to the node being added" do
+      last_node = Node.new('two')
+      list.add_last(last_node)
+
+      expect(last_node.prev_node).to be(list.head)
+    end
+  end
+
+  context "#remove_first" do
+    it "updates the new head's prev_node to nil" do
+      two_list.remove_first
+
+      expect(two_list.head.prev_node).to be_nil
+    end
+  end
+
+  context "#replace" do
+    it "is nil when the head is replaced" do
+      two_list.replace(0, Node.new('new one'))
+
+      expect(two_list.head.prev_node).to be_nil
+    end
+
+    it "sets the tail's prev_node when the tail is replaced" do
+      two_list.replace(1, Node.new('new one'))
+
+      expect(two_list.head.next_node.prev_node.value).to eq('one')
+    end
+
+    it "sets the middle node's prev_node when it is replaced" do
+      two_list.add_first(Node.new('zero'))
+      two_list.replace(1, Node.new('special'))
+
+      # zero -> special -> two
+      expect(two_list.head.next_node.prev_node.value).to eq('zero')
+    end
+
+    it "sets the next node's prev_node when a node replaced" do
+      two_list.add_first(Node.new('zero'))
+      two_list.replace(1, Node.new('special'))
+
+      # zero -> special -> two
+      expect(two_list.head.next_node.next_node.prev_node.value).to eq('special')
+    end
+  end
+
+  context "#insert" do
+    it "sets prev_node correctly when a node is inserted at index 0" do
+      two_list.insert(0, Node.new('zero'))
+
+      expect(two_list.head.prev_node).to be_nil
+      expect(two_list.head.next_node.prev_node.value).to eq('zero')
+    end
+
+    it "sets prev_node correctly when a node is inserted as the new tail" do
+      two_list.insert(2, Node.new('tail'))
+
+      expect(two_list.head.next_node.next_node.prev_node.value).to eq('two')
+    end
+
+    it "sets prev_node correctly when a node is inserted in the middle" do
+      new_node =  Node.new('1.5')
+      two_list.insert(1, new_node)
+
+      expect(two_list.head.next_node.prev_node).to be(head)
+      expect(two_list.head.next_node.next_node.prev_node).to be(new_node)
+    end
+  end
+
+  context "#remove" do
+    it "sets the new head's prev_node to nil when removing the original head" do
+      two_list.remove(0)
+
+      expect(two_list.head.prev_node).to be_nil
+    end
+
+    it "sets the next node's prev_node correctly when removing a middle node" do
+      two_list.add_first(Node.new('zero'))
+      # zero -> one -> two
+      two_list.remove(1)
+      # zero -> two
+
+      expect(two_list.head.next_node.prev_node.value).to eq('zero')
+    end
+
+    it "leaves the prev_node alone when removing the tail" do
+      two_list.remove(1)
+
+      expect(two_list.head.prev_node).to be_nil
     end
   end
 end

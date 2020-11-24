@@ -47,7 +47,11 @@ class DoublyLinkedList {
   // MODIFY TO UPDATE PREV
   addFirst(node) {
     node.next = this.head;
-    this.head.prev = node;
+
+    if (this.head !== null) {
+      this.head.prev = node;
+    }
+    
     this.head = node;
   }
 
@@ -79,7 +83,9 @@ class DoublyLinkedList {
       this.head = this.head.next;
     }
 
-    this.head.prev = null;
+    if (this.head !== null) {
+      this.head.prev = null;
+    }
 
     return oldHead;
   }
