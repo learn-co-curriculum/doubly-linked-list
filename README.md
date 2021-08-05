@@ -4,8 +4,7 @@
 
 Today we'll be implementing a Doubly Linked List. A Doubly Linked List is like a singly-linked list, except it has an extra attribute on each Node: a `prev` pointer that points to the previous Node.
 
-![Linked List](./linked_list.png)
-
+![Linked List](https://curriculum-content.s3.amazonaws.com/data-structures-and-algorithms/doubly-linked-list/linked_list.png)
 
 ## Implement a Doubly Linked List
 
