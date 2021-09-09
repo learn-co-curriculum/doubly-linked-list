@@ -1,20 +1,30 @@
 # Bonus: Build a Doubly Linked List
 
-**Fork and then clone me!**
+## Learning Goals
 
-Today we'll be implementing a Doubly Linked List. A Doubly Linked List is like a singly-linked list, except it has an extra attribute on each Node: a `prev` pointer that points to the previous Node.
+- Define a doubly linked list data structure
+- Implement a common methods of a doubly linked list class
+
+## Introduction
+
+Today we'll be implementing a **doubly linked list**. A doubly linked list is
+like a singly-linked list, except it has an extra attribute on each node: a
+`prev` pointer that points to the previous node.
 
 ![Linked List](https://curriculum-content.s3.amazonaws.com/data-structures-and-algorithms/doubly-linked-list/linked_list.png)
 
 ## Implement a Doubly Linked List
 
-For this challenge, assume that only one Node is added at a time, including upon initialization of a new list.
+For this challenge, assume that only one node is added at a time, including upon
+initialization of a new list.
 
 ### 1. Modify the `Node` Class
 
-Each node should have a pointer called `prev` that points to the Node that comes before it. If no Node comes before it, it should be a falsy value, such as `null` in JS or `nil` in Ruby.
+Each node should have a pointer called `prev` that points to the node that comes
+before it. If no node comes before it, it should be a falsy value, such as
+`null` in JS or `nil` in Ruby.
 
-```
+```txt
 node = new Node('first')
 node.prev
 => nil or null
@@ -26,9 +36,10 @@ node.prev
 
 ### 2. Modify the `LinkedList` Class
 
-Look through the methods and determine which need to be modified in order to ensure that a Node's `prev` attribute always points to the correct Node.
+Look through the methods and determine which need to be modified in order to
+ensure that a node's `prev` attribute always points to the correct Node.
 
-```
+```txt
 list = new LinkedList
 list.add_first(new Node('zeroth'))
 list.head
@@ -51,11 +62,13 @@ list.head.prev
 => nil or null
 ```
 
-Use the language of your choosing. We've included code from the original LinkedList implementation. You may also copy and paste your own.
+Use the language of your choosing. We've included code from the original
+`LinkedList` implementation. You may also copy and paste your own.
 
-We've also included the original LinkedList tests, so you can ensure that your code still functions correctly.
+We've also included the original `LinkedList` tests, so you can ensure that your
+code still functions correctly.
 
-## Before you start coding:
+## Before you start coding
 
 1. Rewrite the problem in your own words
 2. Validate that you understand the problem
